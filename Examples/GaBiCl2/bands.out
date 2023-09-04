@@ -1,0 +1,58 @@
+
+     Program BANDS v.7.1 starts on 17Oct2022 at  0: 4: 3 
+        Git branch: all_p_qe-7.1
+        Last git commit: 64b50ae7008d8f92f2d90b8cd0971bd852daf481
+        Last git commit date: Tue Sep 27 11:29:25 2022 -0300
+        Last git commit subject: fix: write p instead of |p|^2
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 21 395502 (2009);
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 29 465901 (2017);
+         "P. Giannozzi et al., J. Chem. Phys. 152 154105 (2020);
+          URL http://www.quantum-espresso.org", 
+     in publications or presentations arising from this work. More details at
+     http://www.quantum-espresso.org/quote
+
+     Parallel version (MPI & OpenMP), running on      12 processor cores
+     Number of MPI processes:                 1
+     Threads/MPI process:                    12
+
+     MPI processes distributed on     1 nodes
+     1617 MiB available memory on the printing compute node when the environment starts
+
+
+     Reading xml data from directory:
+
+     ./outdir/GaBiCl2.save/
+
+     IMPORTANT: XC functional enforced from input :
+     Exchange-correlation= PBE
+                           (   1   4   3   4   0   0   0)
+     Any further DFT definition will be discarded
+     Please, verify this is what you really want
+
+
+     G-vector sticks info
+     --------------------
+     sticks:   dense  smooth     PW     G-vecs:    dense   smooth      PW
+     Sum        2791    2233    613               509739   364973   52099
+
+     Using Slab Decomposition
+
+     Reading collected, re-writing distributed wavefunctions
+     high-symmetry point:  0.5000 0.2887 0.0000   x coordinate   0.0000
+     high-symmetry point:  0.0000 0.0000 0.0000   x coordinate   0.5774
+     high-symmetry point:  0.6667 0.0000 0.0000   x coordinate   1.2440
+
+     Plottable bands (eV) written to file bands.gnu
+     Bands written to file bands
+
+     BANDS        :   9m55.96s CPU  23m53.90s WALL
+
+
+   This run was terminated on:   0:27:56  17Oct2022            
+
+=------------------------------------------------------------------------------=
+   JOB DONE.
+=------------------------------------------------------------------------------=

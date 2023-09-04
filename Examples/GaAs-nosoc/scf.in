@@ -1,0 +1,31 @@
+&CONTROL
+    calculation='scf'
+    prefix='GaAs'
+    restart_mode='from_scratch'
+    outdir='./outdir'
+    pseudo_dir='../../pseudos/ONCVPSP/abinit/'
+    !pseudo_dir='../../pseudos/'
+/
+&SYSTEM
+    ibrav = 2,
+    celldm(1) = 10.6867,
+    nat = 2, ntyp = 2,
+    ecutwfc = 100,
+    ecutrho = 300,
+    noncolin = False,
+    lspinorb = False,
+    nbnd = 100
+/
+&ELECTRONS
+    mixing_mode = 'plain'
+    conv_thr = 1.0d-8,
+    mixing_beta = 0.7,
+/
+ATOMIC_SPECIES
+Ga 69.723000 Ga_ONCV_PBE_sr.upf
+As 74.921595 As_ONCV_PBE_sr.upf
+ATOMIC_POSITIONS
+Ga 0.00 0.00 0.00
+As 0.25 0.25 0.25
+K_POINTS {automatic}
+8 8 8 0 0 0

@@ -1,0 +1,11 @@
+&BANDS
+ prefix = 'Bi2Se3',
+ outdir = 'outdir',
+ filband = 'bands',
+ lsym = False
+ lp = True
+ lallp = True
+ filp = 'kp.dat'
+ firstk = 31
+ lastk = 31
+/

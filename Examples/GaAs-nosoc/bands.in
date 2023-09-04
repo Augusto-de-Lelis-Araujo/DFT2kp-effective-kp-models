@@ -1,0 +1,11 @@
+&bands
+outdir = './outdir'
+prefix = 'GaAs'
+filband = 'bands'
+lsym = False
+lp = True
+lallp = True
+filp = 'kp.dat'
+firstk = 31
+lastk = 31
+/
