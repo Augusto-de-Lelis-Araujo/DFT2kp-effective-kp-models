@@ -1,0 +1,36 @@
+&CONTROL
+    calculation = 'scf'
+    prefix = 'Germanene'
+    restart_mode = 'from_scratch'
+    outdir = './outdir'
+    pseudo_dir = '../../pseudos/ONCVPSP/abinit/'
+/
+
+&SYSTEM
+    ibrav = 4,
+    celldm(1) = 7.6722875136 
+    celldm(3) = 4.9261083743842367 
+    nat = 2,          !  Numero de atomos na celula unitaria
+    ntyp = 1,         !  Numero de tipos de atomos na celula unitaria
+    ecutwfc = 60.0,   !  kinetic energy cutoff (Ry) for wavefunctions  (1 eV = 0.073498688455102 Ry)
+    ecutrho = 500.0,  !  Kinetic energy cutoff (Ry) for charge density and potential  (Ry = 13.60568495873049 eV)
+    nspin = 1,        !  nspin = 1 para calculo nao-polarizado
+    nbnd = 100        !  Numero de bandas a serem calculadas
+    lspinorb = .true.
+    noncolin = .true.
+/
+
+&ELECTRONS
+    conv_thr = 1.0e-8
+    mixing_beta = 0.7
+/
+
+ATOMIC_SPECIES
+Ge 72.630 Ge_ONCV_PBE_fr.upf
+
+ATOMIC_POSITIONS crystal
+Ge 0.33333333 0.66666667 -0.0172251539117880
+Ge 0.66666667 0.33333333  0.0172251539117880
+
+K_POINTS automatic
+12 12 1 0 0 0 

@@ -1,0 +1,62 @@
+
+     Program BANDS v.7.1 starts on 27Sep2022 at 12: 9:38 
+        Git branch: all_p_qe-7.1
+        Last git commit: dd47c7cefdecbd709fdf0aca11e8032bbaf853f4-dirty
+        Last git commit date: Tue Sep 27 10:55:06 2022 -0300
+        Last git commit subject: nothing
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 21 395502 (2009);
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 29 465901 (2017);
+         "P. Giannozzi et al., J. Chem. Phys. 152 154105 (2020);
+          URL http://www.quantum-espresso.org", 
+     in publications or presentations arising from this work. More details at
+     http://www.quantum-espresso.org/quote
+
+     Parallel version (MPI), running on     1 processors
+
+     MPI processes distributed on     1 nodes
+     11559 MiB available memory on the printing compute node when the environment starts
+
+
+     Reading xml data from directory:
+
+     ./outdir/Germanene.save/
+     Message from routine qes_read:control_variablesType:
+     fcp: wrong number of occurrences
+     Message from routine qes_read:control_variablesType:
+     rism: wrong number of occurrences
+     Message from routine qexsd_readschema :
+     input info not found or not readable in xml file
+
+     IMPORTANT: XC functional enforced from input :
+     Exchange-correlation= PBE
+                           (   1   4   3   4   0   0   0)
+     Any further DFT definition will be discarded
+     Please, verify this is what you really want
+
+
+     G-vector sticks info
+     --------------------
+     sticks:   dense  smooth     PW     G-vecs:    dense   smooth      PW
+     Sum        2053     967    283               363965   120829   18561
+
+     Using Slab Decomposition
+
+     Reading collected, re-writing distributed wavefunctions
+     high-symmetry point:  0.0000 0.0000 0.0000   x coordinate   0.0000
+     high-symmetry point:  0.3333 0.5774 0.0000   x coordinate   0.6667
+     high-symmetry point:  0.0000 0.5774 0.0000   x coordinate   1.0000
+
+     Plottable bands (eV) written to file bands.gnu
+     Bands written to file bands
+
+     BANDS        :   1m 3.88s CPU     52.35s WALL
+
+
+   This run was terminated on:  12:10:30  27Sep2022            
+
+=------------------------------------------------------------------------------=
+   JOB DONE.
+=------------------------------------------------------------------------------=

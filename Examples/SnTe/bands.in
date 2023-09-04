@@ -1,0 +1,11 @@
+&bands
+outdir = './outdir'
+prefix = 'SnTe'
+filband = 'bands'
+lsym = False
+lp = True
+lallp = True
+filp = 'kp.dat'
+firstk = 101
+lastk = 101
+/

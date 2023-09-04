@@ -1,0 +1,36 @@
+&CONTROL
+    calculation = 'scf'
+    prefix = 'SnTe'
+    restart_mode = 'from_scratch'
+    outdir = './outdir'
+    pseudo_dir='../../pseudos/ONCVPSP/abinit/'
+/
+
+&SYSTEM 
+    ibrav = 2,
+    celldm(1) = 12.094246327
+    nat = 2,           !  Numero de atomos na celula unitaria
+    ntyp = 2,          !  Numero de tipos de atomos na celula unitaria
+    ecutwfc = 100.0,    !  kinetic energy cutoff (Ry) for wavefunctions  (1 eV = 0.073498688455102 Ry)
+    ecutrho = 400.0,   !  Kinetic energy cutoff (Ry) for charge density and potential  (Ry = 13.60568495873049 eV)
+    nspin = 1,         !  nspin = 1 para calculo nao-polarizado
+    lspinorb = .true.
+    noncolin = .true.
+    nbnd = 500     
+/
+
+&ELECTRONS
+    conv_thr = 1.0e-8
+    mixing_beta = 0.25  
+/
+
+ATOMIC_SPECIES
+Sn  118.71  Sn_ONCV_PBE_fr.upf
+Te  127.60  Te_ONCV_PBE_fr.upf
+
+ATOMIC_POSITIONS crystal
+Sn  0.0  0.0  0.0
+Te  0.5  0.5  0.5
+
+K_POINTS automatic
+8 8 8 0 0 0  
