@@ -1,4 +1,4 @@
-# DFT2kp
+# DFT2kp Copyright (C) 2023   -   GNU GPL-3.0 license
 ## Article on Arxiv: [DFT2kp: effective kp models from ab-initio data](https://arxiv.org/abs/2306.08554)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
