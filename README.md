@@ -1,4 +1,4 @@
-# DFT2kp
+# DFT2kp (Article: Arxiv([https://dft2kp.gitlab.io/dft2kp/](https://arxiv.org/abs/2306.08554)))
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![PyPI](https://img.shields.io/pypi/v/dft2kp)](https://pypi.org/project/dft2kp/)
