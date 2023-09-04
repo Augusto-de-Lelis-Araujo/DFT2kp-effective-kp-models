@@ -17,7 +17,7 @@ A numerical framework to explicitly calculate kp matrix elements from *ab-initio
 
 - List of authors: [AUTHORS.md](https://gitlab.com/dft2kp/dft2kp/-/blob/main/AUTHORS.md)
 - References to cite if we use our code: [CITING.md](https://gitlab.com/dft2kp/dft2kp/-/blob/main/CITING.md)
-- Quick install intructions and compatibility requirements: [INSTALL.md]([https://gitlab.com/dft2kp/dft2kp/-/blob/main/INSTALL.md](https://github.com/Augusto-de-Lelis-Araujo/DFT2kp_effective_kp_models/blob/main/INSTALL.md)https://github.com/Augusto-de-Lelis-Araujo/DFT2kp_effective_kp_models/blob/main/INSTALL.md)
+- Quick install intructions and compatibility requirements: [INSTALL.md]([https://gitlab.com/dft2kp/dft2kp/-/blob/main/INSTALL.md](https://github.com/Augusto-de-Lelis-Araujo/DFT2kp_effective_kp_models/blob/main/INSTALL.md)
 
 
 
