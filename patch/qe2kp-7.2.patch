@@ -1,0 +1,166 @@
+diff --git a/PP/src/bands.f90 b/PP/src/bands.f90
+index ba56d1929..83e216943 100644
+--- a/PP/src/bands.f90
++++ b/PP/src/bands.f90
+@@ -35,9 +35,15 @@ PROGRAM do_bands
+   LOGICAL :: lsigma(4), lsym, lp, no_overlap, plot_2d
+   INTEGER :: spin_component, firstk, lastk
+   INTEGER :: ios
++  LOGICAL :: lallp ! new flag
+   !
++  ! adding lallp: True/False, controls weather write_p_avg(...) should
++  !  calculate the matrix elements between:
++  !   - False (default): valence and conduction bands only
++  !   - True  (new)    : all bands, as needed for the kp model
+   NAMELIST / bands / outdir, prefix, filband, filp, spin_component, lsigma,&
+-                       lsym, lp, filp, firstk, lastk, no_overlap, plot_2d
++                       lsym, lp, filp, firstk, lastk, no_overlap, plot_2d, &
++                       lallp 
+   !
+   ! initialise environment
+   !
+@@ -57,6 +63,7 @@ PROGRAM do_bands
+   plot_2d=.false.
+   lsigma=.false.
+   lp=.false.
++  lallp=.false.
+   filp='p_avg.dat'
+   firstk=0
+   lastk=npk
+@@ -89,6 +96,7 @@ PROGRAM do_bands
+   CALL mp_bcast( firstk, ionode_id, intra_image_comm )
+   CALL mp_bcast( lastk, ionode_id, intra_image_comm )
+   CALL mp_bcast( lp, ionode_id, intra_image_comm )
++  CALL mp_bcast( lallp, ionode_id, intra_image_comm ) ! new flag
+   CALL mp_bcast( lsym, ionode_id, intra_image_comm )
+   CALL mp_bcast( lsigma, ionode_id, intra_image_comm )
+   CALL mp_bcast( no_overlap, ionode_id, intra_image_comm )
+@@ -126,7 +134,7 @@ PROGRAM do_bands
+   ELSE
+      CALL punch_band(filband,spin_component,lsigma,no_overlap)
+      IF (lsym) CALL sym_band(filband,spin_component,firstk,lastk)
+-     IF (lp) CALL write_p_avg(filp,spin_component,firstk,lastk)
++     IF (lp) CALL write_p_avg(filp,spin_component,firstk,lastk,lallp)
+   END IF
+   !
+   CALL environment_end ( 'BANDS' )
+diff --git a/PP/src/write_p_avg.f90 b/PP/src/write_p_avg.f90
+index 0a1c0aa4d..0df0b91ec 100644
+--- a/PP/src/write_p_avg.f90
++++ b/PP/src/write_p_avg.f90
+@@ -7,7 +7,7 @@
+ !
+ !
+ !-----------------------------------------------------------------------
+-SUBROUTINE write_p_avg(filp, spin_component, firstk, lastk)
++SUBROUTINE write_p_avg(filp, spin_component, firstk, lastk, lallp)
+   !---------------------------------------------------------------------
+   !
+   USE kinds,                ONLY : DP
+@@ -38,6 +38,12 @@ SUBROUTINE write_p_avg(filp, spin_component, firstk, lastk)
+   INTEGER :: iunout, ios, ik, ibnd, jbnd, ipol, nbnd_occ
+   COMPLEX(DP), ALLOCATABLE :: ppsi(:,:), ppsi_us(:,:), matp(:,:,:)
+   CHARACTER (len=256) :: filp, namefile
++  LOGICAL, OPTIONAL :: lallp ! new parameter lallp
++  INTEGER :: nbnd_set, ibnd_0, jbnd_end ! new vars to control loop over bands
++
++  ! keep value of set to False if not informed
++  IF(.NOT.PRESENT(lallp)) lallp = .false. ! default value
++
+   !
+   IF (lda_plus_u) CALL errore('write_p_avg', &
+                        'write_p_avg not working with LDA+U',1)
+@@ -84,8 +90,13 @@ SUBROUTINE write_p_avg(filp, spin_component, firstk, lastk)
+              &"No empty band at point ", i4,3f10.5)') &
+              ik,  (xk (ipol, ik) , ipol = 1, 3)
+      !
+-     ALLOCATE(ppsi(npwx*npol,nbnd_occ))
+-     ALLOCATE(ppsi_us(npwx*npol,nbnd_occ))
++     IF (lallp) THEN ! if true, allocate space for all bands
++       ALLOCATE(ppsi(npwx*npol,nbnd))
++       ALLOCATE(ppsi_us(npwx*npol,nbnd))
++     ELSE  ! if false, keep default behaviour
++       ALLOCATE(ppsi(npwx*npol,nbnd_occ))
++       ALLOCATE(ppsi_us(npwx*npol,nbnd_occ))
++     END IF
+      !
+      npw = ngk(ik)
+      CALL init_us_2 (npw, igk_k(1,ik), xk(1,ik), vkb)
+@@ -94,23 +105,39 @@ SUBROUTINE write_p_avg(filp, spin_component, firstk, lastk)
+      !
+      CALL davcio (evc, 2*nwordwfc, iunwfc, ik, - 1)
+ 
+-     CALL calbec ( npw, vkb, evc, becp, nbnd_occ )
++     IF (lallp) THEN ! if true, calculate for all bands
++        CALL calbec ( npw, vkb, evc, becp, nbnd )
++     ELSE ! if false, keep default behaviour
++        CALL calbec ( npw, vkb, evc, becp, nbnd_occ )
++     END IF
+ 
+      IF (noncolin) THEN
+         ndim = npwx * npol
+      ELSE
+         ndim = npw
+      END IF
++
++     ! prepare variables for the loop
++     IF (lallp) THEN ! if true, change loop limits to account for all bands
++      nbnd_set = nbnd
++      ibnd_0 = 0
++      jbnd_end = nbnd
++     ELSE ! if false, keep default behaviour
++        nbnd_set = nbnd_occ
++        ibnd_0 = nbnd_occ
++        jbnd_end = nbnd_occ
++     END IF
++
+      DO ipol=1,3
+-        CALL compute_ppsi(ppsi, ppsi_us, ik, ipol, nbnd_occ, spin_component)
++        CALL compute_ppsi(ppsi, ppsi_us, ik, ipol, nbnd_set, spin_component)
+         ! FIXME: use ZGEMM instead of DOT_PRODUCT
+-        DO ibnd=nbnd_occ+1,nbnd
+-           DO jbnd=1,nbnd_occ
+-              matp(ibnd-nbnd_occ,jbnd,ipol)=  &
++        DO ibnd=ibnd_0+1,nbnd
++           DO jbnd=1,jbnd_end
++              matp(ibnd-ibnd_0,jbnd,ipol)=  &
+                    DOT_PRODUCT( evc(1:ndim,ibnd),ppsi(1:ndim,jbnd) )
+               IF (okvan) THEN
+-                 matp(ibnd-nbnd_occ,jbnd,ipol)=                  &
+-                      matp(ibnd-nbnd_occ,jbnd,ipol)+             &
++                 matp(ibnd-ibnd_0,jbnd,ipol)=                  &
++                      matp(ibnd-ibnd_0,jbnd,ipol)+             &
+                       (0.d0,0.5d0)*(et(ibnd,ik)-et(jbnd,ik))*  &
+                       DOT_PRODUCT( evc(1:ndim,ibnd),ppsi_us(1:ndim,jbnd))
+               ENDIF
+@@ -128,14 +155,23 @@ SUBROUTINE write_p_avg(filp, spin_component, firstk, lastk)
+         WRITE (iunout, '(10x,3f10.6,i7)') xk(1,ik),xk(2,ik),xk(3,ik), &
+                                           nbnd_occ
+ 
+-        DO ipol=1,3
+-           WRITE (iunout, '(i3)') ipol
+-           DO ibnd=nbnd_occ+1,nbnd
+-              WRITE (iunout, '(5f15.8)') &
+-                    (abs(matp(ibnd-nbnd_occ,jbnd,ipol))**2, jbnd=1,nbnd_occ)
+-
++        IF (lallp) THEN ! writes p with complex and imag parts
++           DO ipol=1,3
++              WRITE (iunout, '(i3)') ipol
++              DO ibnd=ibnd_0+1,nbnd
++                 WRITE (iunout, '(6f15.8)') &
++                       (matp(ibnd-ibnd_0,jbnd,ipol), jbnd=1,jbnd_end)
++              ENDDO
+            ENDDO
+-        ENDDO
++        ELSE ! write absolute value squared (default behaviour)
++           DO ipol=1,3
++              WRITE (iunout, '(i3)') ipol
++              DO ibnd=ibnd_0+1,nbnd
++                 WRITE (iunout, '(5f15.8)') &
++                       (abs(matp(ibnd-ibnd_0,jbnd,ipol))**2, jbnd=1,jbnd_end)
++              ENDDO
++           ENDDO
++        END IF
+      ENDIF
+   ENDDO
+ 
