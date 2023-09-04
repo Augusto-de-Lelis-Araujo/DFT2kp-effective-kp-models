@@ -1,0 +1,16 @@
+Version 0.0.3
+-------------
+
+- Fix requirements conflicts between qsymm and sympy, by requiring sympy=1.10
+- Fix broken pypi wheel
+
+Version 0.0.2
+-------------
+
+- Fix badges
+- Try to fix broken pypi wheel from version 0.0.2 (unsuccessful)
+
+Version 0.0.1
+-------------
+
+- First version submitted to pypi and for publication
