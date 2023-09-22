@@ -28,7 +28,3 @@ Figure 2) (a) Lattice and (b) Brillouin zone for wurtzite crystals. Band structu
 ------------------------------------------------------------------------
 <img src="docs/figures/OtherMaterial.png">
 Figure 3) Band structures for: (a) MoS2, (b) GaBiCl2, and (c) Bi2Se3 showing only the relevant low energy range. The DFT calculations were performed for 1000, 500, 500 bands, respectively. (d) Rhombohedral lattice of Bi2Se3 and 2D hexagonal lattice of (e) MoS2 and (f) GaBiCl2, where we have omitted the vacuum region (15 Å) perpendicular to the plane formed by vectors A1 and A2. (g) 2D Brillouin zone common to MoS2 and GaBiCl2, and (h) 3D BZ of Bi2Se3.
-
-------------------------------------------------------------------------
-<img src="docs/figures/rocksalt.png">
-Figure 4) (a) The rock salt lattice and (b) its Brillouin zone (FCC). Band structures for (c) PbSe and (d) SnTe. The bottom of each panel zooms into the low energy range near the Fermi level. Both DFT calculations were performed considering 500 bands
