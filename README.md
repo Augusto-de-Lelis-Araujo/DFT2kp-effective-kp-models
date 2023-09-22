@@ -31,4 +31,4 @@ Figure 3) Band structures for: (a) MoS2, (b) GaBiCl2, and (c) Bi2Se3 showing onl
 
 ------------------------------------------------------------------------
 <img src="docs/figures/rocksalt.png">
-Figure 4) (a) The rock salt lattice and (b) its Brillouin zone (FCC). Band structures for (c) PbSe and (d) SnTe. The bottom of each panel zooms into the low energy range near the Fermi level. Both DFT calculations were performed considering 500 bands
+Figure 4) (a) The rock salt lattice and (b) its Brillouin zone (FCC). Band structures for (c) PbSe and (d) SnTe. The bottom of each panel zooms into the low energy range near the Fermi level. Both DFT calculations were performed considering 500 bands
