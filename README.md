@@ -1,5 +1,5 @@
 # DFT2kp Copyright (C) 2023 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![PyPI](https://img.shields.io/pypi/v/dft2kp)](https://pypi.org/project/dft2kp/)
-## Article on Arxiv: [DFT2kp: effective kp models from ab-initio data](https://arxiv.org/abs/2306.08554)
+## Article available in Arxiv: [DFT2kp: effective kp models from ab-initio data](https://arxiv.org/abs/2306.08554)
 
 A numerical framework to explicitly calculate kp matrix elements from *ab-initio* data.
 
